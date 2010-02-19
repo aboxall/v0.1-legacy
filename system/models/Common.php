@@ -2,7 +2,10 @@
 
 class Common extends Model
 {
-    public function 
+    public function index()
+    {
+    	
+    }
 }
 
 // EOF
