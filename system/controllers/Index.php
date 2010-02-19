@@ -9,8 +9,15 @@ class IndexController extends Controller
 
     public function index()
     {
-		//print_r(debug_backtrace()); echo "\n\n\n\n\n\n\n";
-        echo 'Basic controller works!<br />This is being called from the index method of the index controller!';
+		$model = new IndexModel();
+
+		foreach ($model->test() as $row)
+		{
+			echo '<p>'.$row['str'].'</p>';
+		}
+
+		$this->template->assign('test', 'Hello, World!');
+		$this->template->display('test.tpl');
     }
 
     public function custom()

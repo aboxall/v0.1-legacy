@@ -3,6 +3,7 @@
 $inc_paths = array(
     SYS_PATH.'/configs',
     SYS_PATH.'/libraries',
+	SYS_PATH.'/libraries/Smarty',
 );
 
 $set_paths  = get_include_path();
