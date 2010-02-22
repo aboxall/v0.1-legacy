@@ -14,6 +14,8 @@ class Template extends Smarty
         $this->cache_dir    = SYS_PATH.'/views/.cache/';
 
 		$this->caching = true;
+
+		$this->assign('href_base', '');
     }
 }
 

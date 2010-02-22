@@ -6,16 +6,31 @@ class Config
 
     public function __construct()
     {
-        $this->properties['default_controller'] = 'index';
-        $this->properties['default_method'] = 'index';
+		require_once 'config.php';
+
+		$this->properties = $config;
     }
 
     public function get($name)
     {
-        return $this->properties[$name];
+		if (isset($this->properties[$name]))
+		{
+        	return $this->properties[$name];
+		}
     }
 
+	public function set($name, $value)
+	{
+		$this->properties[$name] = $value;
+	}
 
+	public function del($name)
+	{
+		if (isset($this->properties[$name]))
+		{
+			unset($this->properties[$name]);
+		}
+	}
 
 }
 

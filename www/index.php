@@ -1,7 +1,10 @@
 <?php
 
-// absolute system path
-define('SYS_PATH', realpath('../system'));
+// ensure session is started first
+session_start();
+
+// include constants file
+require_once '../system/configs/constants.php';
 
 // include autoload functionality
 require_once SYS_PATH.'/configs/autoload.php';
