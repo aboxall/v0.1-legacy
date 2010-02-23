@@ -3,4 +3,3 @@
     RewriteRule    ^$    www/    [L]
     RewriteRule    (.*) www/$1    [L]
  </IfModule>
-
