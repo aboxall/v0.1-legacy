@@ -6,9 +6,9 @@ $inc_paths = array(
 	SYS_PATH.'/libraries/Smarty',
 );
 
-$set_paths  = get_include_path();
-$set_paths .= PATH_SEPARATOR;
-$set_paths .= implode(PATH_SEPARATOR, $inc_paths);
+//$set_paths  = get_include_path();
+//$set_paths .= PATH_SEPARATOR;
+$set_paths = implode(PATH_SEPARATOR, $inc_paths);
 
 set_include_path($set_paths);
 
