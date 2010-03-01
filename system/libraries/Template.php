@@ -9,7 +9,7 @@ class Template extends Smarty
     public $config_dir;
     public $cache_dir;
 	public $caching = true;
-	public $blank_page = false;
+	public $suppress_headers = false;
 
     public function __construct()
     {
@@ -23,12 +23,12 @@ class Template extends Smarty
 		$this->assign('HREF_BASE', HREF_BASE);
     }
 
-	public function blankPage($bool = true)
+	public function suppressHeaders($bool = true)
 	{
-		$this->blank_page = $bool ? true : false;
+		$this->suppress_headers = $bool ? true : false;
 	}
 
-	public function useCaching($bool = true)
+	public function enableCaching($bool = true)
 	{
 		$this->caching = $bool ? true : false;
 	}
