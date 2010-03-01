@@ -6,7 +6,7 @@ class Config
 
     public function __construct()
     {
-		require_once 'config.php';
+		require_once 'config.conf';
 
 		$this->properties = $config;
     }
@@ -24,7 +24,7 @@ class Config
 		$this->properties[$name] = $value;
 	}
 
-	public function del($name)
+	public function rem($name)
 	{
 		if (isset($this->properties[$name]))
 		{

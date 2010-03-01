@@ -2,7 +2,7 @@
 
 class Model
 {
-    protected $db;
+    public $db;
 
     public function __construct()
     {

@@ -6,24 +6,16 @@ class DB extends PDO
 
     public function __construct()
     {
-        // FIXME: These won't be defined here
-        $conn_name = 'dev';
-
-        $this->connections = array(
-            'dev' => array(
-                'dsn'  => 'mysql:dbname=adamswork1;host=213.171.220.32',
-                'user' => 'adamswork1',
-                'pass' => 'swordfish',
-            ),
-        );
+		// Require database configuration
+		require_once 'database.conf';
 
         try
         {
             // Instantiate PDO object
             parent::__construct(
-                $this->connections[$conn_name]['dsn'],
-                $this->connections[$conn_name]['user'],
-                $this->connections[$conn_name]['pass']
+                $this->connections[ENV_LEVEL]['dsn'],
+                $this->connections[ENV_LEVEL]['user'],
+                $this->connections[ENV_LEVEL]['pass']
             );
         }
         catch (Exception $e)
@@ -35,14 +27,9 @@ class DB extends PDO
         parent::setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
-	public function escape($str)
-	{
-		return $str;
-	}
-
 	public function hash($str)
 	{
-		$str  = trim($tr);
+		$str  = trim($str);
 		$salt = '15b29ffdce66e10527a65bc6d71ad94d';
 
 		return sha1($salt.md5($str));

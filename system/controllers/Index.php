@@ -8,17 +8,9 @@ class IndexController extends Controller
     }
 
     public function index()
-    { 
-		$this->template->assign('test', 'Hello, World!');
-
-		$this->template->display('test.tpl');
-	}
-
-    public function custom()
     {
-        echo 'Custom methods work!';
-    }
-
+		$this->template_name = 'index/homepage.tpl';
+	}
 }
 
 // EOF

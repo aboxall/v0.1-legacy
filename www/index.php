@@ -18,4 +18,4 @@ require_once 'Model.php';
 // init the router class
 $router = new Router();
 
-/* EOF */
+// EOF
