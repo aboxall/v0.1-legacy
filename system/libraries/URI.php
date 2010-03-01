@@ -13,8 +13,21 @@ class URI
         }
 
         $this->uri_request = $_SERVER['REQUEST_URI'];
-    }
 
+        if (!defined('HREF_BASE'))
+        {
+            $href_base = $_SERVER['REQUEST_URI'];
+
+            if ($_GET['route'])
+            {
+                $href_base = str_replace($_GET['route'], '', $href_base);
+            }
+
+            $href_base = rtrim($href_base, '/');
+
+            define('HREF_BASE', $href_base);
+        }
+    }
 }
 
 // EOF
