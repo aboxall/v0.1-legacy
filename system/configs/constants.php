@@ -13,4 +13,7 @@ $href_base = rtrim($href_base, '/');
 
 define('HREF_BASE', $href_base);
 
+// enviroment level
+define('ENV_LEVEL', 'dev');
+
 // EOF

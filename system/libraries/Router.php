@@ -7,6 +7,7 @@ class Router
 
     protected $controller;
     protected $method;
+	protected $draw;
 
     public function __construct()
     {
@@ -79,6 +80,9 @@ class Router
 
         // call controller method
         $this->method = call_user_func(array($this->controller, $method));
+
+		// call draw method
+		$this->draw   = call_user_func(array($this->controller, '_draw'));
     }
 
     protected function validRoute($controller, $method = null)
