@@ -18,7 +18,7 @@ class URI
         {
             $href_base = $_SERVER['REQUEST_URI'];
 
-            if ($_GET['route'])
+            if (isset($_GET['route']))
             {
                 $href_base = str_replace($_GET['route'], '', $href_base);
             }
