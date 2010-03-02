@@ -1,0 +1,9 @@
+<?php
+header('HTTP/1.1 401 Unauthorized');
+/*
+ *
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+?>

@@ -1,5 +1,4 @@
 <?php
-
 // ensure session is started first
 session_start();
 

@@ -1,87 +1,96 @@
 <?php
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-class Router
-{
-    private $uri;
+/**
+ * Description of Router
+ *
+ * @author Bogdan Olteanu
+ */
+class Router {
+
+    private $Uri;
     private $config;
+
 
     protected $controller;
     protected $method;
-	protected $draw;
+    protected $draw;
 
     public function __construct()
     {
-        $this->uri = new URI();
-        $this->config = new Config();
+        $this->Uri = new URI();
+        $this->Config = new Config();
 
-        $this->initRouting();
+        $this->InitRouting();
+
     }
 
     protected function initRouting()
     {
         try
         {
-            $this->parseRoute();
+            $this->ParseRoute();
         }
-        catch (Exception $e)
+        catch(Exception $e)
         {
-            // FIXME
-            $error = new Error($e->getMessage());
+            throw new $e->Exception;
         }
     }
 
-    protected function parseRoute()
+    protected function ParseRoute()
     {
-        // parse the route from the URL
-        if (!empty($this->uri->uri_parts))
+        $method = $this->method;
+        $controller = $this->controller;
+        if(!empty($this->Uri->uri_parts))
         {
-            $controller = $this->uri->uri_parts[0];
-
-            if (isset($this->uri->uri_parts[1]))
+            if(isset($this->Uri->uri_parts))
             {
-                $method = $this->uri->uri_parts[1];
+                $this->controller = $this->Uri->uri_parts[0];
+            }
+
+            if(isset($this->Uri->uri_parts[1]))
+            {
+                $this->method = $this->Uri->uri_parts[1];
             }
         }
 
-        // use default if no controller has been found
-        if (empty($controller))
+        if(empty($this->controller))
         {
-            $controller = $this->config->get('default_controller');
+            $this->controller = $this->Config->get('default_controller');
         }
 
-        // use default if no method has been found
-        if (empty($method))
+        if(empty($this->method))
         {
-            $method = $this->config->get('default_method');
+            $this->method = $this->Config->get('default_method');
         }
 
-        // convert class name into expected casing
-        $controller = ucwords($controller);
+        $this->controller = ucwords($this->controller);
 
-        // check the class file exists
-        if (!file_exists(SYS_PATH.'/controllers/'.$controller.'.php'))
+        if(!file_exists(SYS_PATH . '/controllers/' . $this->controller . '.php'))
         {
-            throw new Exception('CLASS_FILE_CANNOT_BE_FOUND');
+            require_once('errors/controller_error.php');
+            //Write some loggin stuff
+        }
+        else
+        {
+
+            $this->controller .= 'Controller';
+            $this->controller = new $this->controller;
         }
 
-        // append controller class name
-        $controller .= 'Controller';
-
-        // init controller
-        $this->controller = new $controller;
-
-        // ensure method exists
-        if (!method_exists($this->controller, $method))
+        if(!method_exists($this->controller, $this->method))
         {
-            throw new Exception('METHOD_CANNOT_BE_FOUND');
+             require_once('errors/action_error.php');
+             //Write some loggin stuff
+
         }
-
-        // call the method
-        $this->method = call_user_func(array($this->controller, $method));
-
-        // call draw method
-        $this->draw   = call_user_func(array($this->controller, '_draw'));
+        else
+        {
+            $this->method = call_user_func(array($this->controller, $this->method));
+            $this->draw   = call_user_func(array($this->controller, '_draw'));
+        }
     }
 }
-
-// EOF
