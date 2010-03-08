@@ -6,58 +6,48 @@
  */
 class Charlee
 {
-    private $charlee;
+    private $properties = array();
+    public $config;
 
     public function __construct()
     {
-        $this->charlee = $charlee;
+        global $config;
+        $this->properties = $config;
+
+        self::Dispatch();
     }
 
     public function Get($name)
     {
-        if(isset($this->charlee[$name]))
+        if(isset($this->properties[$name]))
         {
-            return $this->charlee[$name];
+            return $this->properties[$name];
         }
     }
     
     public function Set($name, $value)
     {
-        $this->charlee[$name] = $value;
+        $this->properties[$name] = $value;
     }
     
     public function Rem($name)
     {
-        if(isset($this->charlee[$name]))
+        if(isset($this->properties[$name]))
         {
-            unset($this->charlee[$name]);
+            unset($this->properties[$name]);
         }
     }
     
-    public function SetApplicationDirectory($dir = false)
+    public function Dispatch()
     {
-        
+        $files = array(
+            'URI',
+            'Controller',
+            'Router',
+            'Model',
+            'Template',
+            'Constants',
+        );
+        Loader::LoadFromArray($files);
     }
-
-    public function SetControllerDirectory($dir = false)
-    {
-
-    }
-
-    public function SetModelsDirectory($dir = false)
-    {
-
-    }
-
-    public function SetErrorsDirectory($dir = false)
-    {
-
-    }
-
-    static public function Dispatch()
-    {
-        Loader::LibLoad('Autoload', true);
-    }
-
-
 }

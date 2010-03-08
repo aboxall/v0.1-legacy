@@ -22,7 +22,7 @@ class Router {
     public function __construct()
     {
         $this->Uri = new URI();
-        $this->Config = new Config();
+        $this->Charlee = new Charlee();
 
         $this->InitRouting();
 
@@ -59,38 +59,19 @@ class Router {
 
         if(empty($this->controller))
         {
-            $this->controller = $this->Config->get('default_controller');
+            $this->controller = $this->Charlee->get('DefaultController');
         }
 
         if(empty($this->method))
         {
-            $this->method = $this->Config->get('default_method');
+            $this->method = $this->Charlee->get('DefaultMethod');
         }
 
         $this->controller = ucwords($this->controller);
 
-        if(!file_exists(SYS_PATH . '/controllers/' . $this->controller . '.php'))
-        {
-            require_once('errors/controller_error.php');
-            //Write some loggin stuff
-        }
-        else
-        {
-
             $this->controller .= 'Controller';
             $this->controller = new $this->controller;
-        }
-
-        if(!method_exists($this->controller, $this->method))
-        {
-             require_once('errors/action_error.php');
-             //Write some loggin stuff
-
-        }
-        else
-        {
             $this->method = call_user_func(array($this->controller, $this->method));
             $this->draw   = call_user_func(array($this->controller, '_draw'));
-        }
     }
 }

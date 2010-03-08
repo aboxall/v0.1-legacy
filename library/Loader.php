@@ -8,25 +8,59 @@
 class Loader
 {
     public $filename; //Holds the name of $filename
-    public $dirname; //Holds the name of the dir
+    public $dirs; //Holds the name of the dir
 
-    static public function LibLoad($classname, $require = false)
+    static public function LibLoad($classname, $require = true)
     {
         self::ClassExists($classname);
         $classname = ltrim($classname, '\\');
         $dirs = 'libraries/';
         if($require)
         {
-            self::LoadFile($classname, $dirs, true);
+            self::LoadFile($classname, $dirs);
         }
         else
         {
-            self::LoadFile($classname, $dirs);
+            self::LoadFile($classname, $dirs, false);
         }
 
     }
 
-    static public function ModelLoad($model, $require = false)
+    static public function LoadFromArray($classname, $dirs = null, $require = true)
+    {
+        foreach($classname as $k => $value)
+        {
+            self::CheckNames($value);
+            self::LoadFile($value, $dirs);
+
+        }
+    }
+
+    static public function LoadConfFile($filename, $dirs = null, $require = true)
+    {
+        $incPath = false;
+        if(!empty($dirs) && (is_array($dirs) || is_string($dirs)))
+        {
+            if(is_array($dirs))
+            {
+                $dirs = implode(PATH_SEPARATOR, $dirs);
+            }
+
+            $incPath = get_include_path();
+            set_include_path($dirs . PATH_SEPARATOR . $incPath);
+        }
+        if($require)
+        {
+          include_once($filename . '.conf');
+
+        }
+        else
+        {
+          include($filename . '.conf');
+        }
+    }
+
+    static public function ModelLoad($model, $require = true)
     {
         self::ClassExists($model);
         $model = ltrim($model, '\\');
@@ -34,15 +68,15 @@ class Loader
 
         if($require)
         {
-            self::LoadFile($model, $dirs, true);
+            self::LoadFile($model, $dirs);
         }
         else
         {
-            self::LoadFile($model, $dirs);
+            self::LoadFile($model, $dirs, false);
         }
     }
 
-    static public function ControllerLoad($controller)
+    static public function ControllerLoad($controller, $require = true)
     {
         self::ClassExists($controller);
         $controller = ltrim($controller, '\\');
@@ -50,16 +84,16 @@ class Loader
 
         if($require)
         {
-            self::LoadFile($controller, $dirs, true);
+            self::LoadFile($controller, $dirs);
         }
         else
         {
-            self::LoadFile($controller, $dirs);
+            self::LoadFile($controller, $dirs, false);
         }
 
     }
 
-    static public function LoadFile($filename, $dirs, $require = false)
+    static public function LoadFile($filename, $dirs, $require = true)
     {
         self::CheckNames($filename);
 
