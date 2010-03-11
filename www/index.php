@@ -1,10 +1,10 @@
 <?php
 
 // define several important path constants
-define('SYS_PATH', realpath('../system/');
-define('APP_PATH', realpath('../system/application');
-define('LIB_PATH', realpath('../system/library');
-define('LOG_PATH', realpath('../system/logs');
+define('SYS_PATH', realpath('../system/'));
+define('APP_PATH', realpath('../system/application'));
+define('LIB_PATH', realpath('../system/library'));
+define('LOG_PATH', realpath('../system/logs'));
 
 // include the Load class for all future object instantiation                                    
 require_once LIB_PATH . '/Load.php';

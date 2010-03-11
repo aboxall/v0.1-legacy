@@ -4,13 +4,13 @@ require_once APP_PATH . '/exceptions/Load.php';
 
 class Load
 {
-    private static _objects = array();
+    private static $_objects = array();
 
     public static function library($class_name, $singleton = false)
     {
         if (!class_exists($class_name))
         {
-            $path = LIB_PATH . '/' . strtolower($class_name) . '.class.php';
+            $path = LIB_PATH . '/' . $class_name . '.php';
 
             if (!file_exists($path))
             {
@@ -21,7 +21,7 @@ class Load
         }
         elseif ($singleton && in_array($class_name, self::_objects))
         {
-            return self::_objects[$class_name];
+            return self::$_objects[$class_name];
         }
 
         if (!class_exists($class_name))
@@ -33,7 +33,7 @@ class Load
 
         if ($singleton)
         {
-            self::_objects[$class_name] = $obj;
+            self::$_objects[$class_name] = $obj;
         }
 
         return $obj;
@@ -43,7 +43,7 @@ class Load
     {
         if (!class_exists($class_name))
         {
-            $path = APP_PATH . '/controllers/' . strtolower($class_name) . '.class.php';
+            $path = APP_PATH . '/controllers/' . $class_name . '.php';
 
             if (!file_exists($path))
             {
@@ -67,7 +67,7 @@ class Load
     {
         if (!class_exists($class_name))
         {
-            $path = APP_PATH . '/models/' . strtolower($class_name) . '.class.php';
+            $path = APP_PATH . '/models/' . $class_name . '.php';
 
             if (!file_exists($path))
             {
