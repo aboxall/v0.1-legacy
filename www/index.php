@@ -1,20 +1,24 @@
 <?php
-// ensure session is started first
-session_start();
 
-// include constants file
-require_once '../system/configs/constants.php';
+// define several important path constants
+define('SYS_PATH', realpath('../system/');
+define('APP_PATH', realpath('../system/application');
+define('LIB_PATH', realpath('../system/library');
+define('LOG_PATH', realpath('../system/logs');
 
-// include autoload functionality
-require_once SYS_PATH.'/configs/autoload.php';
+// include the Load class for all future object instantiation                                    
+require_once LIB_PATH . '/Load.php';
 
-// include base controller
-require_once 'Controller.php';
+// include the base Controller class
+require_once LIB_PATH . '/Controller.php';
 
-// include base model
-require_once 'Model.php';
+// include the base Model class
+require_once LIB_PATH . '/Model.php';
 
-// init the router class
-$router = new Router();
+ // create the Config instance and set to singleton
+$config = Load::library('Config', true);
+
+// instantiate the router class
+$router = Load::library('Router');
 
 // EOF

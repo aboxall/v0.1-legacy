@@ -4,12 +4,12 @@ class IndexController extends Controller
 {
     public function __construct()
     {
-		parent::__construct();
+	   // parent::__construct();
     }
 
     public function index()
     {
-		$this->template_name = 'index/homepage.tpl';
+        echo 'JUST MAKE SURE WE ARE GETTING THIS FAR!!';
 	}
 }
 
