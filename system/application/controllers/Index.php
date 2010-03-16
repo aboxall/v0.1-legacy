@@ -10,7 +10,7 @@ class IndexController extends Controller
 
     public function index()
     {
-        $view->add('index');
+        //$view->add('index');
     }
 }
 

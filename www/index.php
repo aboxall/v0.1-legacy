@@ -20,4 +20,8 @@ $config = Load::library('Config', true);
 
 // instantiate the router class
 $router = Load::library('Router');
+
+
+$view = Load::library('View');
+$view->add('index');
 // EOF
