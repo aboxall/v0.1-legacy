@@ -2,31 +2,16 @@
 
 abstract class Controller
 {
-    protected $template;
-	protected $template_name;
+    protected $view;
 
     public function __construct()
     {
-        $this->template = new Template();
+        $this->view = Load::library('View');
     }
 
 	public function _draw()
 	{
-		if (!$this->template->suppress_headers)
-        {
-            $this->template->display('global/head.tpl');
-		    $this->template->display('global/header.tpl');
-        }
-
-		if (!empty($this->template_name))
-		{
-			$this->template->display($this->template_name);
-		}
-
-        if (!$this->template->suppress_headers)
-        {
-		    $this->template->display('global/footer.tpl');
-        }
+        // ready for new View library functionality
 	}
 
     abstract public function index();
