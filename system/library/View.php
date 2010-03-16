@@ -1,24 +1,26 @@
 <?php
 class View
 {
-    public $template_dir;
-    public $template_ext;
-    public $path;
     public $vars = array();
+    protected $template_dir;
+    protected $template_ext;
+    protected $path;
+    protected $config;
 
     public function __construct()
     {
-        //$config = Load::library('Config');
+        $this->config = Load::library('Config');
     }
+
     public function __set($index, $value)
     {
         $this->vars[$index] = $value;
     }
     public function add($name)
-    {$config = Load::library('Config');
+    {
         try
         {
-            $this->path = $config->get('default.view_dir') . $name . $config->get('default.view_ext');
+            $this->path = $this->config->get('default.view_dir') . $name . $this->config->get('default.view_ext');
             if(!file_exists($this->path) && (!is_file($this->path)))
             {
                 throw new Exception('The ' . $this->path . ' doesn\'t exists');
