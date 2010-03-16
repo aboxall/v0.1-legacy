@@ -2,7 +2,7 @@
 
 class Config
 {
-    public $properties = array();
+    private $properties = array();
     public $path;
 
     public function __construct()
