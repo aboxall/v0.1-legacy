@@ -4,8 +4,19 @@ class Config
 {
     private $properties = array();
     public $path;
+    public static $instance;
 
-    public function __construct()
+    public static function getInstance()
+    {
+        if (!self::$instance)
+        {
+            self::$instance = new Config;
+        }
+
+        return self::$instance;
+    }
+
+    private function __construct()
     {
         $this->path = APP_PATH . '/configs/';
 
