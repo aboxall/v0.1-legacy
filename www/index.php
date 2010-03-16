@@ -20,5 +20,4 @@ $config = Load::library('Config', true);
 
 // instantiate the router class
 $router = Load::library('Router');
-
 // EOF
