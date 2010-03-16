@@ -6,7 +6,6 @@ class Config
     private static $instance;
 
     public $path;
-    public static $instance;
 
     public static function getInstance()
     {
