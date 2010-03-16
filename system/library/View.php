@@ -6,12 +6,16 @@ class View
     public $path;
     public $vars = array();
 
+    public function __construct()
+    {
+        //$config = Load::library('Config');
+    }
     public function __set($index, $value)
     {
         $this->vars[$index] = $value;
     }
     public function add($name)
-    {
+    {$config = Load::library('Config');
         try
         {
             $this->path = $config->get('default.view_dir') . $name . $config->get('default.view_ext');
