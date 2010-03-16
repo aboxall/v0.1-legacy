@@ -2,6 +2,7 @@
 
 class IndexController extends Controller
 {
+
     public function __construct()
     {
 	   // parent::__construct();
@@ -9,8 +10,8 @@ class IndexController extends Controller
 
     public function index()
     {
-        echo 'JUST MAKE SURE WE ARE GETTING THIS FAR!!';
-	}
+        $view->add('index');
+    }
 }
 
 // EOF

@@ -1,9 +1,9 @@
 <?php
 class View
 {
-    public $template_dir = NULL;
-    public $template_ext = NULL;
-    private $path;
+    public $template_dir;
+    public $template_ext;
+    public $path;
     public $vars = array();
 
     public function __set($index, $value)
