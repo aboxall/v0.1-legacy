@@ -16,8 +16,9 @@ require_once LIB_PATH . '/Controller.php';
 require_once LIB_PATH . '/Model.php';
 
  // create the Config instance and set to singleton
-$config = Load::library('Config', true);
+$config = Load::library('Config');
 
 // instantiate the router class
 $router = Load::library('Router');
+
 // EOF
