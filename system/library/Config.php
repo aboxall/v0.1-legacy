@@ -3,6 +3,8 @@
 class Config
 {
     private $properties = array();
+    private static $instance;
+
     public $path;
     public static $instance;
 
