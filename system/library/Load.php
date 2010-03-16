@@ -6,36 +6,51 @@ class Load
 {
     private static $_objects = array();
  
-    public static function library($class_name, $singleton = false)
+    public static function library($class_name, $clean_copy = false)
     {
+        // if we don't want a fresh instantiation of the object and
+        // there's a copy available
+        if (!$clean_copy && in_array($class_name, self::$_objects))
+        {
+            // .. return the copy
+            return self::$_ojects[$class_name];
+        }
+
+        // check if we need to attempt to load the class file first
         if (!class_exists($class_name))
         {
             $path = LIB_PATH . '/' . $class_name . '.php';
  
+            // make sure the file exists before we attempt to include it
             if (!file_exists($path))
             {
                 throw new LoadException('LOAD_LIBRARY_FILE_NOT_FOUND');
             }
  
+            // include the file
             require $path;
         }
-        elseif ($singleton && in_array($class_name, self::_objects))
-        {
-            return self::$_objects[$class_name];
-        }
- 
+
+        // if class still doesn't exist we have a problem 
         if (!class_exists($class_name))
         {
             throw new LoadException('LOAD_LIBRARY_CLASS_NOT_FOUND');
         }
- 
+
+        // check if this is a singleton object 
+        if (method_exists($class_name, 'getInstance'))
+        {
+            // return singleton instance of object
+            return call_user_func(array($class_name, 'getInstance'));
+        }
+
+        // instantiate the object
         $obj = new $class_name;
  
-        if ($singleton)
-        {
-            self::$_objects[$class_name] = $obj;
-        }
- 
+        // cache a clean copy for later instances
+        self::$_objects[$class_name] = $obj;
+
+        // return object
         return $obj;
     }
  
