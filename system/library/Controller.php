@@ -8,11 +8,10 @@ abstract class Controller
     {
         $this->view = Load::library('View');
     }
-
-	public function _draw()
-	{
+    public function _draw()
+    {
         // ready for new View library functionality
-	}
+    }
 
     abstract public function index();
 }
