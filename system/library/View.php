@@ -2,8 +2,6 @@
 class View
 {
     public $vars = array();
-    protected $template_dir;
-    protected $template_ext;
     protected $path;
     protected $config;
 
